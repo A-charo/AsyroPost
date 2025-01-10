@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>TofyDo</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <style>
+        /* General styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 60px;
+        }
+
+            header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #FF0000;
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo h1 {
+        margin: 0;
+        font-size: 20px;
+        color: #fff;
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding-right: 25px;
+        flex: 1; /* Center-align the search bar */
+    }
+
+    .search-container input[type="text"] {
+        padding: 10px;
+        font-size: 1em;
+        width: 70%;
+        max-width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 20px 0 0 20px; /* Rounded left corners */
+        outline: none;
+    }
+
+    .search-container input[type="text"]:focus {
+        border-color: #FF0000;
+    }
+
+    .search-container button {
+        padding: 10px 20px;
+        font-size: 1em;
+        background-color: #a00404;
+        color: #fff;
+        border: none;
+        padding-top: 10px;
+        padding-bottom: 14px;
+        border-radius: 0 20px 20px 0; /* Rounded right corners */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-container button i {
+        font-size: 16px;
+    }
+
+    .search-container button:hover {
+        background-color: #333;
+        border: 1px solid white;
+    }
+
+ 
+
+        .news-container {
+            margin-top: 20px;
+        }
+
+        .news-item {
+            background-color: #fff;
+            border-radius: 10px; /* Border radius applied */
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            color: #a00404;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            cursor: pointer; /* Change cursor to indicate it is clickable */
+        }
+
+        p {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more, .hide-more {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        hr {
+            border: 1px solid #ddd;
+        }
+
+        /* Spinner styles */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF0000;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: 50px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Flexbox layout for Read More and Time */
+        .read-more-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .news-time {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .read-more {
+            margin-right: 10px;
+        }
+
+        .no-news {
+            text-align: center;
+            color: #555;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .search-container input[type="text"] {
+                width: 70%;
+            }
+
+            .news-item {
+                padding: 15px;
+            }
+
+            .news-container {
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .search-container input[type="text"] {
+                width: 60%;
+            }
+
+            .news-item {
+                padding: 10px;
+            }
+        }
+
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color: #FF0000;
+	color:#FFF;
+    border: 3px solid #0d035a;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>TofyDo</h1>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search news by title..." onkeyup="searchNews()">
+                <button onclick="searchNews()"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </header>
+    
+    
+    
+
+    <div class="container">
+
+        <!-- Spinner shown while loading -->
+        <div id="loading-spinner" class="spinner"></div>
+
+        <!-- News container will populate after data is fetched -->
+        <div id="news-container" class="news-container"></div>
+    </div>
+
+    <a href="add.html" class="float">
+        <i class="fa fa-plus my-float"></i>
+        </a>
+
+    <script>
+        const SHEET_ID = "193kjJ1_yBYGAWfoqx2VAmBAr5FXP8mNpAapMxnC0imo";
+        const API_KEY = "AIzaSyDIw6pHVQwrpv1TjkcNsxU1K8ulixnD5QM";
+        const SHEET_NAME = "Sheet1";
+
+        let allNewsData = [];
+
+        function init() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+            }).then(function () {
+                return gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: SHEET_ID,
+                    range: SHEET_NAME + "!A:C"  // Columns A (newsTitle), B (newsDescription), C (newsTime)
+                });
+            }).then(function (response) {
+                const data = response.result.values;
+                const newsContainer = document.getElementById("news-container");
+                const loadingSpinner = document.getElementById("loading-spinner");
+
+                // Hide the spinner once the data is fetched
+                loadingSpinner.style.display = 'none';
+
+                if (data && data.length > 1) {  // Skip the header row
+                    allNewsData = data.slice(1).reverse(); // Store the reversed data to make it accessible for search
+                    displayNews(allNewsData); // Display all news initially
+                } else {
+                    newsContainer.innerHTML = `<p class="no-news">No news found.</p>`;
+                }
+            }, function (error) {
+                console.error(error);
+                document.getElementById("news-container").innerHTML = `<p class="no-news">Error loading news.</p>`;
+                document.getElementById("loading-spinner").style.display = 'none';
+            });
+        }
+
+        // Function to format news description into paragraphs
+        function formatDescription(newsDescription) {
+            const paragraphs = newsDescription.split('\n\n');  // Split by double line breaks
+            return paragraphs.map(para => `<p>${para}</p>`).join('');
+        }
+
+        // Function to format the time into relative time (e.g., "1 hour ago", "2 days ago")
+        function formatTime(newsTime) {
+            const now = new Date();
+            const postedTime = new Date(newsTime);
+
+            if (isNaN(postedTime)) {
+                console.error("Invalid date format:", newsTime);  // Log error if date is invalid
+                return "Invalid Time";
+            }
+
+            const diffInSeconds = Math.floor((now - postedTime) / 1000);
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            const diffInDays = Math.floor(diffInHours / 24);
+            const diffInMonths = Math.floor(diffInDays / 30);
+            const diffInYears = Math.floor(diffInDays / 365);
+
+            if (diffInSeconds < 10) {  // Adjusted condition for "Just Now"
+                return "Just Now";
+            } else if (diffInSeconds < 60) {
+                return "Just Now"; // For seconds less than 60, show "Just Now"
+            } else if (diffInMinutes < 60) {
+                return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+            } else if (diffInHours < 24) {
+                return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+            } else if (diffInDays < 30) {
+                return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+            } else if (diffInMonths < 12) {
+                return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
+            } else {
+                return `${diffInYears} year${diffInYears > 1 ? 's' : ''} ago`;
+            }
+        }
+
+        function displayNews(newsData) {
+            const newsContainer = document.getElementById("news-container");
+            let output = '';
+
+            newsData.forEach(function (row) {
+                const newsTitle = row[0];
+                const newsDescription = formatDescription(row[1]);  // Format the description into paragraphs
+                const newsTime = row[2];  // Get the time
+                const formattedTime = formatTime(newsTime);  // Get relative time
+                output += `
+                    <div class="news-item">
+                        <h2 onclick="toggleDescription(this)">${newsTitle}</h2>
+                        <div id="short-desc" class="short-desc">${newsDescription.split('<p>')[0]}</div>
+                        <div id="full-desc" class="full-desc" style="display: none;">
+                            ${newsDescription}
+                        </div>
+                        <div class="read-more-container">
+                            <span class="news-time">${formattedTime}</span>
+                            <span class="read-more" onclick="toggleDescription(this)">Read More</span>
+                        </div>
+                        <hr>
+                    </div>
+                `;
+            });
+
+            newsContainer.innerHTML = output;
+        }
+
+        // Toggle visibility of full description when clicked
+        function toggleDescription(element) {
+            const newsItem = element.closest(".news-item");
+            const shortDesc = newsItem.querySelector("#short-desc");
+            const fullDesc = newsItem.querySelector("#full-desc");
+            const readMore = newsItem.querySelector(".read-more");
+
+            if (fullDesc.style.display === "none") {
+                shortDesc.style.display = "none";
+                fullDesc.style.display = "block";
+                readMore.innerText = "Hide More";
+            } else {
+                shortDesc.style.display = "block";
+                fullDesc.style.display = "none";
+                readMore.innerText = "Read More";
+            }
+        }
+
+        // Search function for filtering news based on the search input
+        function searchNews() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const filteredNews = allNewsData.filter(function (row) {
+                return row[0].toLowerCase().includes(searchInput);
+            });
+            displayNews(filteredNews);
+        }
+
+        // Initialize the Google API client
+        gapi.load("client", init);
+    </script>
+</body>
+</html>
