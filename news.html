@@ -32,7 +32,7 @@
         top: 0;
         left: 0;
         z-index: 1000;
-        background-color: #FF0000;
+        background-color: #001222;
         color: #fff;
         padding: 10px 20px;
         display: flex;
@@ -74,14 +74,11 @@
         outline: none;
     }
 
-    .search-container input[type="text"]:focus {
-        border-color: #FF0000;
-    }
 
     .search-container button {
         padding: 10px 20px;
         font-size: 1em;
-        background-color: #a00404;
+        background-color: #707070;
         color: #fff;
         border: none;
         padding-top: 10px;
@@ -98,8 +95,7 @@
     }
 
     .search-container button:hover {
-        background-color: #333;
-        border: 1px solid white;
+        background-color: #fd9500;
     }
 
  
@@ -122,7 +118,7 @@
         }
 
         h2 {
-            color: #a00404;
+            color: #001222;
             font-size: 1.2em;
             margin-bottom: 10px;
             cursor: pointer; /* Change cursor to indicate it is clickable */
@@ -136,7 +132,7 @@
         }
 
         .read-more, .hide-more {
-            color: #FF0000;
+            color: #fd9500;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
@@ -149,7 +145,7 @@
         /* Spinner styles */
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #FF0000;
+            border-top: 4px solid #0d035a;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -225,7 +221,7 @@
 	height:60px;
 	bottom:40px;
 	right:40px;
-	background-color: #FF0000;
+	background-color: #001222;
 	color:#FFF;
     border: 3px solid #0d035a;
 	border-radius:50px;
@@ -241,9 +237,6 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">
-                <h1>TofyDo</h1>
-            </div>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search news by title..." onkeyup="searchNews()">
                 <button onclick="searchNews()"><i class="fa fa-search"></i></button>
